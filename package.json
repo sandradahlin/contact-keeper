@@ -1,0 +1,19 @@
+{
+    "name": "contact-keeper",
+    "version": "1.0.0",
+    "description": "Fullstack MERN app, Create and manage your contacts",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sandra-td/contact-keeper.git"
+    },
+    "author": "Aleksandra",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/sandra-td/contact-keeper/issues"
+    },
+    "homepage": "https://github.com/sandra-td/contact-keeper#readme"
+}
