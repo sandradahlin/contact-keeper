@@ -7,6 +7,11 @@ const encryptPassword = require("../services/encryptPassword");
 
 const User = require("../models/User");
 
+router.get("/", async (req, res) => {
+    let users = await User.find();
+    res.json({ users });
+});
+
 // @route   POST api/users
 // @desc    Register a user
 // @access  Public
@@ -32,7 +37,7 @@ router.post(
         try {
             let user = await User.findOne({ email: email });
             if (user) {
-                res.status(400).json({ msg: "User already exists." });
+                return res.status(400).json({ msg: "User already exists." });
             }
             user = new User({
                 name,
@@ -41,6 +46,7 @@ router.post(
             });
 
             user.password = await encryptPassword(password);
+
             await user.save();
             // res.send("User registered");
 
