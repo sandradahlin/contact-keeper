@@ -8,9 +8,9 @@ const ContactFilter = () => {
 
     useEffect(() => {
         if (!filtered) {
-            return text.current.value;
+            text.current.value = "";
         }
-    }, []);
+    });
 
     const onChange = (e) => {
         if (text.current.value !== "") {
