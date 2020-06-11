@@ -10,6 +10,7 @@ const User = require("../models/User");
 // @route   GET api/users
 // @desc    Get logged in user
 // @access  Private
+//for private routes we need to send in a token - auth middleware
 router.get("/", auth, async (req, res) => {
     // res.send("Get logged in user");
     try {

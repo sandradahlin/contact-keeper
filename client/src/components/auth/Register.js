@@ -2,21 +2,26 @@ import React, { useState, useContext, useEffect } from "react";
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 
-const Register = () => {
+const Register = (props) => {
     const alertContext = useContext(AlertContext);
     const authContext = useContext(AuthContext);
 
     const { setAlert } = alertContext;
-    const { registerUser, error, clearErrors } = authContext;
+    const { registerUser, error, clearErrors, isAuthenticated } = authContext;
 
     useEffect(() => {
+        //redirects the logged in user
+        if (isAuthenticated) {
+            props.history.push("/");
+        }
         //could have done this with ids coming from backend
         //but it's a small application so this works as well
         if (error === "User already exists.") {
             setAlert(error, "danger");
             clearErrors();
         }
-    }, [error]);
+        //eslint-disable-next-line
+    }, [error, isAuthenticated, props.history]);
 
     const [user, setUser] = useState({
         name: "",
