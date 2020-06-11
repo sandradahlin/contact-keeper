@@ -10,7 +10,8 @@ const Register = () => {
     const { registerUser, error, clearErrors } = authContext;
 
     useEffect(() => {
-        console.log(error, "theo");
+        //could have done this with ids coming from backend
+        //but it's a small application so this works as well
         if (error === "User already exists.") {
             setAlert(error, "danger");
             clearErrors();
