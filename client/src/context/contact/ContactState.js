@@ -4,6 +4,8 @@ import axios from "axios";
 import ContactContext from "./contactContext";
 import contactReducer from "./contactReducer";
 import {
+    GET_CONTACTS,
+    CLEAR_CONTACTS,
     ADD_CONTACT,
     SET_CURRENT,
     CLEAR_CURRENT,
@@ -16,7 +18,7 @@ import {
 
 const ContactState = (props) => {
     const initialState = {
-        contacts: [],
+        contacts: null,
         current: null,
         filtered: null,
         error: null
@@ -25,6 +27,18 @@ const ContactState = (props) => {
     const [state, dispatch] = useReducer(contactReducer, initialState);
 
     //actions
+
+    const getContacts = async () => {
+        //no need to set the token because the token is set whenever a user is logged in
+        try {
+            const res = await axios.get("/api/contacts");
+            dispatch({ type: GET_CONTACTS, payload: res.data });
+        } catch (error) {
+            console.log(error);
+            dispatch({ type: CONTACT_ERROR, payload: error.response.data.msg });
+        }
+    };
+
     const addContact = async (contact) => {
         const config = {
             headers: {
@@ -65,6 +79,10 @@ const ContactState = (props) => {
         dispatch({ type: CLEAR_FILTER });
     };
 
+    const clearContacts = () => {
+        dispatch({ type: CLEAR_CONTACTS });
+    };
+
     return (
         <ContactContext.Provider
             value={{
@@ -72,13 +90,15 @@ const ContactState = (props) => {
                 current: state.current,
                 error: state.error,
                 filtered: state.filtered,
+                getContacts,
                 addContact,
                 deleteContact,
                 setCurrent,
                 clearCurrent,
                 updateContact,
                 filterContacts,
-                clearFilter
+                clearFilter,
+                clearContacts
             }}
         >
             {props.children}
