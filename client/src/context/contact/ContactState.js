@@ -63,16 +63,32 @@ const ContactState = (props) => {
         }
     };
 
+    const updateContact = async (contact) => {
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        //no need to set the token because the token is set whenever a user is logged in
+        try {
+            const res = await axios.put(
+                `/api/contacts/${contact._id}`,
+                contact,
+                config
+            );
+            dispatch({ type: UPDATE_CONTACT, payload: res.data.contact });
+        } catch (error) {
+            console.log(error);
+            dispatch({ type: CONTACT_ERROR, payload: error.response.data.msg });
+        }
+    };
+
     const setCurrent = (contact) => {
         dispatch({ type: SET_CURRENT, payload: contact });
     };
 
     const clearCurrent = () => {
         dispatch({ type: CLEAR_CURRENT });
-    };
-
-    const updateContact = (contact) => {
-        dispatch({ type: UPDATE_CONTACT, payload: contact });
     };
 
     const filterContacts = (text) => {
