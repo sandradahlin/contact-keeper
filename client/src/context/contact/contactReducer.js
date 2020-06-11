@@ -45,6 +45,13 @@ export default (state, action) => {
                         ? action.payload
                         : contact
                 ),
+                filtered: state.filtered
+                    ? state.filtered.map((contact) =>
+                          contact._id === action.payload._id
+                              ? action.payload
+                              : contact
+                      )
+                    : null,
                 loading: false
             };
         case FILTER_CONTACTS:
