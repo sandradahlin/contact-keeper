@@ -34,7 +34,9 @@ const AuthState = (props) => {
         };
         try {
             const res = await axios.post("/api/users", formData, config);
+            //get the token / res.data
             dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+            console.log(res.data);
         } catch (error) {
             dispatch({ type: REGISTER_FAIL, payload: error.response.data.msg });
         }
