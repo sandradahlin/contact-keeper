@@ -33,7 +33,6 @@ const ContactState = (props) => {
             const res = await axios.get("/api/contacts");
             dispatch({ type: GET_CONTACTS, payload: res.data });
         } catch (error) {
-            console.log(error);
             dispatch({ type: CONTACT_ERROR, payload: error.response.data.msg });
         }
     };
@@ -49,7 +48,6 @@ const ContactState = (props) => {
             const res = await axios.post("/api/contacts", contact, config);
             dispatch({ type: ADD_CONTACT, payload: res.data.contact });
         } catch (error) {
-            console.log(error);
             dispatch({ type: CONTACT_ERROR, payload: error.response.data.msg });
         }
     };
@@ -78,7 +76,6 @@ const ContactState = (props) => {
             );
             dispatch({ type: UPDATE_CONTACT, payload: res.data.contact });
         } catch (error) {
-            console.log(error);
             dispatch({ type: CONTACT_ERROR, payload: error.response.data.msg });
         }
     };
